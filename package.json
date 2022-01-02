@@ -1,6 +1,6 @@
 {
   "name": "declarative-optional",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A Declarative way to deal with null or undefined or promises via optional and chaining",
   "main": "dist/optional.js",
   "types": "dist/index.d.ts",

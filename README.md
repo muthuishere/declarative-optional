@@ -9,8 +9,7 @@
 Declarative-Optional
 ===================
 
-A Declarative way to deal with null or undefined or promises. The concept is extension of Java Optionals combined with Javascript Promises.
-
+A Javascript library to write concise functional code.Combined with features of Java Optional & Promise chaining
 
 ##### Features
 
