@@ -9,10 +9,8 @@
 Declarative-Optional
 ===================
 
-> A Declarative way to code javascript and deal with null or undefined or promises with an Optional monad and chaining them
+A Declarative way to deal with null or undefined or promises. The concept is extension of Java Optionals combined with Javascript Promises.
 
-
-Similar like Java Optionals combined with Javascript Promises.
 
 ##### Features
 

@@ -50,7 +50,7 @@ function getResult(arr) {
 function flattenOptional(result){
     let isOptional = result.hasOwnProperty("input") && result.hasOwnProperty("_functions");
     console.assert(isOptional, {result: result, errorMsg: "flatten should be called with an optional"});
-    return isOptional ? result.get() : result;
+    return  result.get() ;
 
 }
 Optional.prototype.executeAsync = function () {
@@ -105,11 +105,6 @@ Optional.prototype.orElse = function (defaultValue) {
 Optional.prototype.isPresent = function () {
     const result= this.execute()
     return result?true:false;
-}
-
-Optional.prototype.orElseGet = function (fn) {
-    const result= this.execute()
-    return result?result:fn()
 }
 
 Optional.prototype.ifPresent = function (fn) {

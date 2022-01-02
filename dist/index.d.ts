@@ -15,7 +15,6 @@ declare class Optional {
     get(): any;
     orElse(defaultValue: any): any;
     isPresent(): boolean;
-    orElseGet(fn: any): any;
     ifPresent(fn: any): any;
     ifPresentOrElse(fn: any, elseFn: any): any;
     stream(): any;
