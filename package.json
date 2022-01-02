@@ -1,7 +1,7 @@
 {
   "name": "declarative-optional",
-  "version": "1.0.5",
-  "description": " A Declarative way to deal with null or undefined or promises with an Optional monad and chaining them",
+  "version": "1.0.8",
+  "description": "A Declarative way to deal with null or undefined or promises via optional and chaining",
   "main": "dist/optional.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -22,8 +22,12 @@
     "uglify-js": "^3.14.5"
   },
   "keywords": [
-    "optional",
+    "declarative-optional",
+    "Optional",
+    "MayBe",
     "optional-js",
+    "functional-programming",
+    "declarative-programming",
     "monad",
     "clean-code"
   ],

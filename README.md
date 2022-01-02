@@ -108,7 +108,7 @@ async function login({username, password}) {
 ```
 
 
-######fetch Api with Optional 
+#### fetch Api with Optional 
 
 ```javascript
 
@@ -395,8 +395,11 @@ All the async based results must use toAsync and then they can use the Optional 
 
 ###### Alternatives
 
-There are some alternatives to check out
-[Optional.js](https://github.com/spencerwi/Optional.js)
-[amidevtech/optional.js](https://github.com/amidevtech/optional.js)
+There are some alternatives , Have a look into them as well
+
+ [Optional.js](https://github.com/spencerwi/Optional.js)
+
+ [amidevtech/optional.js](https://github.com/amidevtech/optional.js)
+
 
 
