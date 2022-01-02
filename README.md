@@ -1,6 +1,10 @@
 
 
+![Build](https://img.shields.io/github/workflow/status/muthuishere/declarative-optional/Node.js%20CI)
 ![Coverage](https://img.shields.io/codecov/c/github/muthuishere/declarative-optional)
+![License](https://img.shields.io/npm/l/declarative-optional)
+![Version](https://img.shields.io/npm/v/declarative-optional)
+
 
 Declarative-Optional
 ===================
@@ -8,7 +12,25 @@ Declarative-Optional
 > A Declarative way to code javascript and deal with null or undefined or promises with an Optional monad and chaining them
 
 
+Similar like Java Optionals combined with Javascript Promises
 
+##### Features
+
+> Lazily evaluated
+
+> Merging multiple Optionals
+
+> Convert to Stream
+
+> Promises chaining
+
+> Most of the Java Optional Features
+
+
+
+<hr/>
+
+Refactoring typical code 
 
 ```javascript
 
@@ -31,7 +53,12 @@ function incrementIfDivisableByFive(input) {
         .map(i => i + 1)
         .orElse(0)
 }
+```
 
+
+Refactoring Asynchronous code
+
+```javascript
 // Consider the async function
 
 function getFromUserService({username, password}) {
@@ -77,17 +104,6 @@ async function login({username, password}) {
 There are so much you can play with declarative Optional. It does have some features similar to Java Optional & RX libraries, except the code is  small (one file around 4 Kb original source) and simple. 
 
 
-##### Features
-
-> Lazily evaluated
-
-> Merging multiple Optionals
-
-> Convert to Stream
-
-> Promises chaining
-
-> Most of the Java Optional Features
 
 
 ### Documentation
