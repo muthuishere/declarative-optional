@@ -1,7 +1,7 @@
 Declarative-Optional
 ===================
 
-> A Declarative way to deal with null or undefined or promises with an Optional monad and chaining them
+> A Declarative way to code javascript and deal with null or undefined or promises with an Optional monad and chaining them
 
 
 
