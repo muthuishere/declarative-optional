@@ -28,5 +28,8 @@
     "clean-code"
   ],
   "author": "Muthukumaran Navaneethakrishnan(https://github.com/muthuishere/)",
-  "license": "MIT"
+  "license": "MIT",
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
+  }
 }
