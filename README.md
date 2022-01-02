@@ -1,3 +1,7 @@
+
+
+![Coverage](https://img.shields.io/codecov/c/github/muthuishere/declarative-optional)
+
 Declarative-Optional
 ===================
 
