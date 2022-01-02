@@ -12,7 +12,7 @@ Declarative-Optional
 > A Declarative way to code javascript and deal with null or undefined or promises with an Optional monad and chaining them
 
 
-Similar like Java Optionals combined with Javascript Promises
+Similar like Java Optionals combined with Javascript Promises.
 
 ##### Features
 
@@ -30,33 +30,41 @@ Similar like Java Optionals combined with Javascript Promises
 
 <hr/>
 
-Refactoring typical code 
+##### Installation
 
-```javascript
-
-
-// Consider the function
-function incrementIfDivisableByFive(input) {
-    if (null == input || undefined == input)
-        return 0;
-
-    const result = 0;
-    if (input % 5 == 0)
-        result = input + 1
-    return result;
-}
-
-// With Declarative Optional
-function incrementIfDivisableByFive(input) {
-    return Optional.of(input)
-        .filter(i => i % 5 == 0)
-        .map(i => i + 1)
-        .orElse(0)
-}
+```
+    npm install declarative-optional   
 ```
 
 
-Refactoring Asynchronous code
+##### Usage
+
+```
+// Common JS
+    const Optional = require( "declarative-optional");
+
+//ES6
+    import Optional from "declarative-optional";
+
+//Increment a Number , which may be null
+ Optional.of(input)
+    .map(val=>val+1)
+    .get()
+
+// All the expressions will be evaluated only after you specified get()
+
+//Increment a Number by 5, Only if its dividable by 5
+Optional.of(input)
+    .filter(val=>val % 5 == 0)
+    .map(val=>val+5)
+    .get()
+
+
+   
+```
+
+
+On  Asynchronous code
 
 ```javascript
 // Consider the async function
@@ -101,6 +109,36 @@ async function login({username, password}) {
 }
 ```
 
+
+######fetch Api with Optional 
+
+```javascript
+
+    // Typical code 
+
+    const rawResults = await fetch('https://jsonplaceholder.typicode.com/todos/' + item);
+    const response = await rawResults.json();
+
+    if (response.completed) {
+        return response.title
+    } else {
+        return ""
+    }
+
+    
+    // Can be rewritten with optional as 
+    const body = await Optional.of('https://jsonplaceholder.typicode.com/todos/' + item)
+        .map(fetch)
+        .map(response => response.json())
+        .filter(response => response.completed == true)
+        .map(response => response.title)
+        .toAsync();
+
+    return body.orElse("");
+    
+
+
+```
 There are so much you can play with declarative Optional. It does have some features similar to Java Optional & RX libraries, except the code is  small (one file around 4 Kb original source) and simple. 
 
 
@@ -359,7 +397,7 @@ All the async based results must use toAsync and then they can use the Optional 
 
 ###### Alternatives
 
-There are some wonderful alternatives to check out
+There are some alternatives to check out
 [Optional.js](https://github.com/spencerwi/Optional.js)
 [amidevtech/optional.js](https://github.com/amidevtech/optional.js)
 
