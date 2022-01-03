@@ -19,7 +19,7 @@ A Javascript library to write concise functional code.Combined with features of 
 
 > Convert to Stream
 
-> Promises chaining
+> chaining async and sync functions
 
 > Most of the Java Optional Features
 
@@ -113,25 +113,26 @@ async function login({username, password}) {
 
     // Typical code 
 
-    const rawResults = await fetch('https://jsonplaceholder.typicode.com/todos/' + item);
+    const url  ='https://jsonplaceholder.typicode.com/todos/' + item
+    const rawResults = await fetch(url);
     const response = await rawResults.json();
 
     if (response.completed) {
         return response.title
     } else {
-        return ""
+        return null
     }
 
     
     // Can be rewritten with optional as 
-    const body = await Optional.of('https://jsonplaceholder.typicode.com/todos/' + item)
+    return await Optional.of('https://jsonplaceholder.typicode.com/todos/' + item)
         .map(fetch)
         .map(response => response.json())
         .filter(response => response.completed == true)
         .map(response => response.title)
-        .toAsync();
+        .getAsync();
 
-    return body.orElse("");
+   
     
 
 
@@ -263,7 +264,7 @@ evaluate all the chained functions and give the result. If no value is available
        .map(promiseFunctionToValidateSomeOther)
       .get() ;  
 
-    // Error ? Use toAsync to deal with promises
+    // Error ? Use getAsync to deal with promises
 
 <br/>
     </td>
@@ -334,6 +335,57 @@ Evaluates all the chained functions and give an array object , if the result is 
 
 </tr>
 
+<tr>
+    <td> getAsync </td>
+    <td>
+<br/>
+Evaluate all the chained functions combined with promises give another Promise&lt;result&gt;  
+
+<br/>
+</td>
+    <td>
+
+
+<br/>
+
+
+
+     const result = await Optional.of(input)      
+                   .map(promiseFunctionToValidateUserDetails)
+                   .map(promiseFunctionToValidateRole)
+                    .map(regularFunctionToFormatData)
+                    .getAsync()
+                   
+
+
+
+<br/>
+
+
+    
+    const result = await Optional.of('https://jsonplaceholder.typicode.com/todos/' + item)
+                        .map(fetch)
+                        .map(response => response.json())
+                        .filter(response => response.completed == true)
+                        .map(response => response.title)
+                        .getAsync();
+
+
+<br/>
+
+**The below will also work fine**
+
+      const result = await Optional.of(21)
+                              .filter(val => val % 5 == 0)
+                              .map(val => val + 5)
+                              .getAsync()  
+
+      
+
+<br/>
+    </td>
+
+</tr>
 
 <tr>
     <td> toAsync </td>
@@ -375,15 +427,7 @@ All the async based results must use toAsync and then they can use the Optional 
 
 
 
-<br/>
 
-**The below will also work fine**
-
-      const optionalData = await Optional.of(21)
-                              .filter(val => val % 5 == 0)
-                              .map(val => val + 5)
-
-      // optionalData.get() holds the result
 
 <br/>
     </td>

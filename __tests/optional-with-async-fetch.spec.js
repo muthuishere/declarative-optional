@@ -63,11 +63,12 @@ test("optional chained and ended with toAsync can further be evaluated with ifPr
     const input = {username: "hi", password: "hi"};
 
 
-      Optional.of(input)
+    const page =  Optional.of(input)
         .filter(({username, password}) => (null != username && null != password))
         .map(getFromUserService)
         .map(result=> result.isAdmin?"adminPage":"userPage")
         .toAsync()
+
         .then(page=>{
 
             page.ifPresentOrElse((result)=>{
@@ -104,26 +105,22 @@ test("optional chained and ended with toAsync should act appropriate even if ini
 
 
 
-test("optional chained and ended with toAsync can be catched with error", (done) => {
-
+test("optional chained and ended with toAsync can be catched with error", async () => {
 
 
     const input = {username: "hi", password: "hi"};
 
 
-    Optional.of(input)
-        .filter(({username, password}) => (null != username && null != password))
-        .map(getFromUserServiceError)
-        .map(result=> result.isAdmin?"adminPage":"userPage")
-        .toAsync()
-        .then(page=>{
-
-            done("Failed should not be in then")
-        })
-        .catch(err=>{
-            console.log(err)
-            done()
-        })
+    try {
+        const page = await Optional.of(input)
+            .filter(({username, password}) => (null != username && null != password))
+            .map(getFromUserServiceError)
+            .map(result => result.isAdmin ? "adminPage" : "userPage")
+            .getAsync()
+        return Promise.reject("Should not pass,Exception should be thrown")
+    }catch (e){
+        return Promise.resolve()
+    }
 
 
 
@@ -156,6 +153,29 @@ test("optional started with promise should work well ",async () => {
 test("async optional should merge with other async optional as well ",async () => {
 
     const input = {username: "hi", password: "hi"};
+    const result = await Optional.of(input)
+        .filter(({username, password}) => (null != username && null != password))
+        .map(getFromUserService)
+        .flatmap(({id})=>productsForUserId(id))
+        .toAsync()
+
+
+    expect(result).toBeTruthy()
+    expect(result).toBeInstanceOf(Optional)
+    expect(result.get()).toStrictEqual([
+        {id:"1",name:"Macbook Pro 2017" },
+        {id:"2",name:"Dell XPS 2021" }
+    ])
+})
+
+
+test("async optional should merge with other async optional as well ",async () => {
+
+    const input = {username: "hi", password: "hi"};
+
+    const {username, password} = input
+
+
     const result = await Optional.of(input)
         .filter(({username, password}) => (null != username && null != password))
         .map(getFromUserService)

@@ -71,12 +71,19 @@ Optional.prototype.executeAsync = function () {
         });
     }, Promise.resolve(Promise.all(elementAsArray(this.input))));
 }
-Optional.prototype.toAsync = async function () {
+
+
+Optional.prototype.getAsync = async function () {
     const finalOutput = await this.executeAsync()
     const asyncResult= getResult(finalOutput, this.input)
-    return new Optional(asyncResult);
+    return asyncResult;
 }
 
+
+Optional.prototype.toAsync = async function () {
+    const asyncResult= await this.getAsync()
+    return new Optional(asyncResult);
+}
 
 Optional.prototype.execute = function () {
 

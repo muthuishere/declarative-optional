@@ -10,6 +10,7 @@ declare class Optional {
     flatmap: (fn: any) => Optional;
     flatten: () => Optional;
     executeAsync(): any;
+    getAsync(): Promise<any>;
     toAsync(): Promise<Optional>;
     execute(): any;
     get(): any;

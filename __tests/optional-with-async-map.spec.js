@@ -58,6 +58,23 @@ test("optional chained and ended with toAsync to return another optional",async 
 
 })
 
+test("optional chained and ended with getAsync to return another value",async () => {
+
+    const input = {username: "hi", password: "hi"};
+    const result = await Optional.of(input)
+        .filter(({username, password}) => (null != username && null != password))
+        .map(getFromUserService)
+        .map(result=>result.isAdmin?"adminPage":"userPage")
+        .getAsync()
+
+
+    expect(result).toBeTruthy()
+    expect(result).toBe("adminPage")
+
+
+})
+
+
 test("optional chained and ended with toAsync can further be evaluated with ifPresentOrElse",(done) => {
 
     const input = {username: "hi", password: "hi"};
