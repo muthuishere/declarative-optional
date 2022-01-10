@@ -1,35 +1,42 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Optional = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 
-
-function Optional(input) {
-    this.input = input;
-    this._functions = []
-    this.map = (fn) => {
-        this._functions.push((arrayedInput) => Array.prototype.map.call(arrayedInput, fn))
-        return this;
+function FunctionChainer(obj){
+    this.functions = []
+    obj.map = (fn) => {
+        this.functions.push((arrayedInput) => Array.prototype.map.call(arrayedInput, fn))
+        return obj;
     }
 
-    this.filter = (fn) => {
-        this._functions.push((arrayedInput) => Array.prototype.filter.call(arrayedInput, fn))
-        return this;
+    obj.filter = (fn) => {
+        this.functions.push((arrayedInput) => Array.prototype.filter.call(arrayedInput, fn))
+        return obj;
     }
-    this.peek = (fn) => {
-        this._functions.push((arrayedInput) => Array.prototype.map.call(arrayedInput, (data)=>{
+    obj.peek = (fn) => {
+        this.functions.push((arrayedInput) => Array.prototype.map.call(arrayedInput, (data)=>{
             fn(data)
             return data
         }))
-        return this;
+        return obj;
     }
-    this.flatmap = (fn) => {
-        this._functions.push((arrayedInput) => Array.prototype.map.call(arrayedInput, fn))
-        this._functions.push((arrayedInput) => Array.prototype.map.call(arrayedInput, flattenOptional))
-        return this;
+    obj.flatmap = (fn) => {
+        this.functions.push((arrayedInput) => Array.prototype.map.call(arrayedInput, fn))
+        this.functions.push((arrayedInput) => Array.prototype.map.call(arrayedInput, flattenOptional))
+        return obj;
     }
-    this.flatten = () => {
-        this._functions.push((arrayedInput) => Array.prototype.map.call(arrayedInput, flattenOptional))
-        return this;
+    obj.flatten = () => {
+        this.functions.push((arrayedInput) => Array.prototype.map.call(arrayedInput, flattenOptional))
+        return obj;
     }
 
+}
+
+
+function Optional(input) {
+    this.input = input;
+    this.functionChainer =new FunctionChainer(this)
+    this.getFunctions = ()=>{
+        return this.functionChainer.functions;
+    }
 
 
 }
@@ -53,25 +60,29 @@ function flattenOptional(result){
     return  result.get() ;
 
 }
+
+
 Optional.prototype.executeAsync = function () {
 
 
-    return  this._functions.reduce((p, currentFunction) => {
+    return  this.getFunctions().reduce((p, currentFunction) => {
         return p.then((item) => {
 
             return new Promise(resolve => {
-            return  Promise.resolve(item).then(val=>{
-                let result = currentFunction(val);
-                resolve(Promise.all(result))
+                return  Promise.resolve(item).then(val=>{
 
-            })})
+                    let result =  val.length >0 ?currentFunction(val):val;
+                    resolve(Promise.all(result))
+
+                })}
+
+            )
 
 
 
         });
     }, Promise.resolve(Promise.all(elementAsArray(this.input))));
 }
-
 
 Optional.prototype.getAsync = async function () {
     const finalOutput = await this.executeAsync()
@@ -84,11 +95,10 @@ Optional.prototype.toAsync = async function () {
     const asyncResult= await this.getAsync()
     return new Optional(asyncResult);
 }
-
 Optional.prototype.execute = function () {
 
-    const finalOutput = this._functions.reduce((acc, currentFunction) => {
-        return currentFunction(acc);
+    const finalOutput = this.getFunctions().reduce((acc, currentFunction) => {
+        return acc.length >0 ?currentFunction(acc):acc;
     }, elementAsArray(this.input))
 
 

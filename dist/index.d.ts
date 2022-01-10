@@ -3,12 +3,8 @@ declare function Optional(input: any): void;
 declare class Optional {
     constructor(input: any);
     input: any;
-    _functions: any[];
-    map: (fn: any) => Optional;
-    filter: (fn: any) => Optional;
-    peek: (fn: any) => Optional;
-    flatmap: (fn: any) => Optional;
-    flatten: () => Optional;
+    functionChainer: FunctionChainer;
+    getFunctions: () => any[];
     executeAsync(): any;
     getAsync(): Promise<any>;
     toAsync(): Promise<Optional>;
@@ -22,5 +18,10 @@ declare class Optional {
 }
 declare namespace Optional {
     function of(input: any): Optional;
+}
+declare function FunctionChainer(obj: any): void;
+declare class FunctionChainer {
+    constructor(obj: any);
+    functions: any[];
 }
 //# sourceMappingURL=index.d.ts.map

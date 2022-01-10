@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>81/81</span>
+                <span class='fraction'>84/84</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>32/32</span>
+                <span class='fraction'>34/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>75/75</span>
+                <span class='fraction'>78/78</span>
             </div>
         
             
@@ -211,10 +211,18 @@
 <a name='L146'></a><a href='#L146'>146</a>
 <a name='L147'></a><a href='#L147'>147</a>
 <a name='L148'></a><a href='#L148'>148</a>
-<a name='L149'></a><a href='#L149'>149</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-yes">38x</span>
@@ -241,6 +249,15 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">57x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -265,6 +282,8 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -273,8 +292,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">45x</span>
 <span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">45x</span>
 <span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -295,7 +316,6 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -360,36 +380,43 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
-&nbsp;
-function Optional(input) {
-    this.input = input;
-    this._functions = []
-    this.map = (fn) =&gt; {
-        this._functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, fn))
-        return this;
+function FunctionChainer(obj){
+    this.functions = []
+    obj.map = (fn) =&gt; {
+        this.functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, fn))
+        return obj;
     }
 &nbsp;
-    this.filter = (fn) =&gt; {
-        this._functions.push((arrayedInput) =&gt; Array.prototype.filter.call(arrayedInput, fn))
-        return this;
+    obj.filter = (fn) =&gt; {
+        this.functions.push((arrayedInput) =&gt; Array.prototype.filter.call(arrayedInput, fn))
+        return obj;
     }
-    this.peek = (fn) =&gt; {
-        this._functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, (data)=&gt;{
+    obj.peek = (fn) =&gt; {
+        this.functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, (data)=&gt;{
             fn(data)
             return data
         }))
-        return this;
+        return obj;
     }
-    this.flatmap = (fn) =&gt; {
-        this._functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, fn))
-        this._functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, flattenOptional))
-        return this;
+    obj.flatmap = (fn) =&gt; {
+        this.functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, fn))
+        this.functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, flattenOptional))
+        return obj;
     }
-    this.flatten = () =&gt; {
-        this._functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, flattenOptional))
-        return this;
+    obj.flatten = () =&gt; {
+        this.functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, flattenOptional))
+        return obj;
     }
 &nbsp;
+}
+&nbsp;
+&nbsp;
+function Optional(input) {
+    this.input = input;
+    this.functionChainer =new FunctionChainer(this)
+    this.getFunctions = ()=&gt;{
+        return this.functionChainer.functions;
+    }
 &nbsp;
 &nbsp;
 }
@@ -413,25 +440,29 @@ function flattenOptional(result){
     return  result.get() ;
 &nbsp;
 }
+&nbsp;
+&nbsp;
 Optional.prototype.executeAsync = function () {
 &nbsp;
 &nbsp;
-    return  this._functions.reduce((p, currentFunction) =&gt; {
+    return  this.getFunctions().reduce((p, currentFunction) =&gt; {
         return p.then((item) =&gt; {
 &nbsp;
             return new Promise(resolve =&gt; {
-            return  Promise.resolve(item).then(val=&gt;{
-                let result = currentFunction(val);
-                resolve(Promise.all(result))
+                return  Promise.resolve(item).then(val=&gt;{
 &nbsp;
-            })})
+                    let result =  val.length &gt;0 ?currentFunction(val):val;
+                    resolve(Promise.all(result))
+&nbsp;
+                })}
+&nbsp;
+            )
 &nbsp;
 &nbsp;
 &nbsp;
         });
     }, Promise.resolve(Promise.all(elementAsArray(this.input))));
 }
-&nbsp;
 &nbsp;
 Optional.prototype.getAsync = async function () {
     const finalOutput = await this.executeAsync()
@@ -444,11 +475,10 @@ Optional.prototype.toAsync = async function () {
     const asyncResult= await this.getAsync()
     return new Optional(asyncResult);
 }
-&nbsp;
 Optional.prototype.execute = function () {
 &nbsp;
-    const finalOutput = this._functions.reduce((acc, currentFunction) =&gt; {
-        return currentFunction(acc);
+    const finalOutput = this.getFunctions().reduce((acc, currentFunction) =&gt; {
+        return acc.length &gt;0 ?currentFunction(acc):acc;
     }, elementAsArray(this.input))
 &nbsp;
 &nbsp;
@@ -514,7 +544,7 @@ module.exports = Optional;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jan 03 2022 12:39:28 GMT+0530 (India Standard Time)
+                at Mon Jan 10 2022 21:15:06 GMT+0530 (India Standard Time)
             </div>
         <script src="prettify.js"></script>
         <script>
