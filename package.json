@@ -1,6 +1,6 @@
 {
   "name": "declarative-optional",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A Declarative way to deal with null or undefined or promises via optional and chaining",
   "main": "dist/optional.js",
   "types": "dist/index.d.ts",
@@ -33,6 +33,11 @@
     "clean-code"
   ],
   "author": "Muthukumaran Navaneethakrishnan(https://github.com/muthuishere/)",
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://github.com/muthuishere/declarative-optional",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/muthuishere/declarative-optional.git"
+  }
 
 }
