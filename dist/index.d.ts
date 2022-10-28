@@ -1,27 +1,22 @@
-export = Optional;
-declare function Optional(input: any): void;
-declare class Optional {
-    constructor(input: any);
-    input: any;
-    functionChainer: FunctionChainer;
-    getFunctions: () => any[];
-    executeAsync(): any;
+export declare class Optional<Type> {
+    private input;
+    map: any;
+    filter: any;
+    peek: any;
+    flatmap: any;
+    flatten: any;
+    functions: Function[];
+    getFunctions(): Function[];
+    constructor(input: Type);
+    executeAsync(): Promise<unknown>;
     getAsync(): Promise<any>;
-    toAsync(): Promise<Optional>;
+    toAsync(): Promise<Optional<any>>;
     execute(): any;
     get(): any;
     orElse(defaultValue: any): any;
     isPresent(): boolean;
-    ifPresent(fn: any): any;
-    ifPresentOrElse(fn: any, elseFn: any): any;
-    stream(): any;
+    ifPresent(fn: Function): any;
+    ifPresentOrElse(fn: Function, elseFn: Function): any;
+    stream(): any[] | Type;
+    static of<Type>(input: Type): Optional<Type>;
 }
-declare namespace Optional {
-    function of(input: any): Optional;
-}
-declare function FunctionChainer(obj: any): void;
-declare class FunctionChainer {
-    constructor(obj: any);
-    functions: any[];
-}
-//# sourceMappingURL=index.d.ts.map
