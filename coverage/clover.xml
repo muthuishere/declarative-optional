@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1653197449799" clover="3.2.0">
-  <project timestamp="1653197449800" name="All files">
+<coverage generated="1641829577679" clover="3.2.0">
+  <project timestamp="1641829577680" name="All files">
     <metrics statements="78" coveredstatements="78" conditionals="24" coveredconditionals="24" methods="34" coveredmethods="34" elements="136" coveredelements="136" complexity="0" loc="78" ncloc="78" packages="1" files="1" classes="1"/>
-    <file name="index.js" path="C:\muthu\gitworkspace\libraries\npm\js\declarative-optional\declarative-optional\src\index.js">
+    <file name="index.js" path="C:\muthu\gitworkspace\libraries\npm\js\declarative-optional\src\index.js">
       <metrics statements="78" coveredstatements="78" conditionals="24" coveredconditionals="24" methods="34" coveredmethods="34"/>
       <line num="3" count="55" type="stmt"/>
       <line num="4" count="55" type="stmt"/>
