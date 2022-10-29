@@ -1,4 +1,4 @@
-export declare class Optional<Type> {
+export default class Optional<Type> {
     private input;
     map: any;
     filter: any;

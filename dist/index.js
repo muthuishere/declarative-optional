@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Optional = void 0;
 var Optional = /** @class */ (function () {
     function Optional(input) {
         var _this = this;
@@ -165,7 +164,7 @@ var Optional = /** @class */ (function () {
     };
     return Optional;
 }());
-exports.Optional = Optional;
+exports.default = Optional;
 function elementAsArray(input) {
     var arr = [];
     if (!!input)

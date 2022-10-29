@@ -1,5 +1,5 @@
 // @ts-nocheck
-import {Optional} from "../src";
+import Optional from "../src";
 import {expect} from "chai";
 
 function validationError(){

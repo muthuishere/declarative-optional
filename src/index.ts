@@ -1,4 +1,4 @@
-export class Optional<Type> {
+export default class Optional<Type> {
   map: any;
   filter: any;
   peek: any;
