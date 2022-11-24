@@ -9,15 +9,13 @@
 Declarative-Optional
 ===================
 
-A Javascript library to write concise functional code.Combined with features of Java Optional & Promise chaining
+A Javascript library to write concise functional code.Combined with features of Java Optional & Javascripts Promise chaining
 
 ##### Features
 
 > Lazily evaluated
 
 > Merging multiple Optionals
-
-> Convert to Stream
 
 > chaining async and sync functions
 
@@ -41,7 +39,7 @@ A Javascript library to write concise functional code.Combined with features of 
     const Optional = require( "declarative-optional");
 
 //ES6
-    import Optional from "declarative-optional";
+    import {Optional} from "declarative-optional";
 
 //Increment a Number , which may be null
  Optional.of(input)

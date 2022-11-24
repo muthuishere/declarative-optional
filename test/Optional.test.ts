@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import {expect} from "chai";
-import Optional from "../src";
+import {Optional} from "../src";
 
 
 
