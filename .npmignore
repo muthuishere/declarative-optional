@@ -6,3 +6,5 @@ examples
 test
 coverage
 *.log
+.github
+
