@@ -13,5 +13,8 @@
     "sinon": "^14.0.2"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "declarative-optional": "github:muthuishere/declarative-optional#features/typescript"
+  }
 }
