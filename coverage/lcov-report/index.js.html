@@ -15,41 +15,41 @@
         }
     </style>
 </head>
-    
+
 <body>
 <div class='wrapper'>
     <div class='pad1'>
         <h1><a href="index.html">All files</a> index.js</h1>
         <div class='clearfix'>
-            
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>84/84</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>24/24</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>34/34</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>78/78</span>
             </div>
-        
-            
+
+
         </div>
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
@@ -400,11 +400,11 @@ function FunctionChainer(obj){
     }
     obj.flatmap = (fn) =&gt; {
         this.functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, fn))
-        this.functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, flattenOptional))
+        this.functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, flattenResults))
         return obj;
     }
     obj.flatten = () =&gt; {
-        this.functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, flattenOptional))
+        this.functions.push((arrayedInput) =&gt; Array.prototype.map.call(arrayedInput, flattenResults))
         return obj;
     }
 &nbsp;
@@ -434,7 +434,7 @@ function getResult(arr) {
     return arr[0];
 }
 &nbsp;
-function flattenOptional(result){
+function flattenResults(result){
     let isOptional = result.hasOwnProperty("input") &amp;&amp; result.hasOwnProperty("_functions");
     console.assert(isOptional, {result: result, errorMsg: "flatten should be called with an optional"});
     return  result.get() ;
@@ -556,4 +556,3 @@ module.exports = Optional;
         <script src="block-navigation.js"></script>
     </body>
 </html>
-    

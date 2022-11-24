@@ -1,18 +1,18 @@
-import 'regenerator-runtime/runtime'
-import Optional from "../src/index";
-
+import {Optional} from "../src";
+import {expect} from "chai";
 
 function validationError(){
     throw new Error("Cannot be Null")
 }
-function getFromUserService({username,password}){
+function getFromUserService(input:any){
+    const  {username,password} =input
     return new Promise((function (resolve) {
         resolve({id:"212",name:"user" ,isAdmin:true})
     }))
 }
 
 // an Async based Optional
-function productsForUserId(id){
+function productsForUserId(id:any){
     return Optional.of(new Promise((resolve) =>{
         resolve([
             {id:"1",name:"Macbook Pro 2017" },
@@ -22,7 +22,7 @@ function productsForUserId(id){
 }
 
 // an Optional
-function couponsForUserId(id){
+function couponsForUserId(id: any){
     return Optional.of([
             {id:"1",code:"XGHGSHGIDLGLWGHVDL" },
             {id:"2",code:"732JFSDLFJDSF" }
@@ -30,18 +30,21 @@ function couponsForUserId(id){
 
 }
 
-function getFromUserServiceError({username,password}){
+function getFromUserServiceError(input:any){
+    const  {username,password} =input
     return new Promise((function (resolve,reject) {
         reject("invalid user")
     }))
 }
 
-function redirectTo(pagename){
+function redirectTo(pagename:any){
 
     console.log("redirecting to page"+pagename)
 }
 
-test("optional chained and ended with toAsync to return another optional",async () => {
+describe('Optional with async', () => {
+
+it("optional chained and ended with toAsync to return another optional",async () => {
 
     const input = {username: "hi", password: "hi"};
     const result = await Optional.of(input)
@@ -51,14 +54,16 @@ test("optional chained and ended with toAsync to return another optional",async 
         .toAsync()
 
 
-    expect(result).toBeTruthy()
-    expect(result).toBeInstanceOf(Optional)
-    expect(result.get()).toBe("adminPage")
+    expect(result).not.to.be.null
+
+
+    expect(result).to.be.an.instanceof(Optional)
+    expect(result.get()).to.equal("adminPage")
 
 
 })
 
-test("optional chained and ended with toAsync can further be evaluated with ifPresentOrElse",(done) => {
+it("optional chained and ended with toAsync can further be evaluated with ifPresentOrElse",(done) => {
 
     const input = {username: "hi", password: "hi"};
 
@@ -72,7 +77,7 @@ test("optional chained and ended with toAsync can further be evaluated with ifPr
         .then(page=>{
 
             page.ifPresentOrElse((result)=>{
-                expect(result).toBe("adminPage")
+                expect(result).to.equal("adminPage")
                 done()
             },()=>{
                 done("Failed")
@@ -80,9 +85,9 @@ test("optional chained and ended with toAsync can further be evaluated with ifPr
             })
         })
 })
-test("optional chained and ended with toAsync should act appropriate even if initial data validation fails",(done) => {
+it("optional chained and ended with toAsync should act appropriate even if initial data validation fails",(done) => {
 
-    const input = {username: null, password: "hi"};
+    const input:any = {username: null, password: "hi"};
 
 
       Optional.of(input)
@@ -93,7 +98,7 @@ test("optional chained and ended with toAsync should act appropriate even if ini
         .then(page=>{
 
             page.ifPresentOrElse((result)=>{
-                expect(result).toBe("adminPage")
+                expect(result).to.equal("adminPage")
                 done("Validation should Fail")
             },()=>{
 
@@ -105,7 +110,7 @@ test("optional chained and ended with toAsync should act appropriate even if ini
 
 
 
-test("optional chained and ended with toAsync can be catched with error", async () => {
+it("optional chained and ended with toAsync can be catched with error", async () => {
 
 
     const input = {username: "hi", password: "hi"};
@@ -126,7 +131,7 @@ test("optional chained and ended with toAsync can be catched with error", async 
 
 })
 
-test("optional chained with  toAsync should work fine for non async operations as well ",async () => {
+it("optional chained with  toAsync should work fine for non async operations as well ",async () => {
 
 
     const res = await Optional.of(45)
@@ -134,10 +139,10 @@ test("optional chained with  toAsync should work fine for non async operations a
         .map(i => i + 1)
         .toAsync()
 
-    expect(res.get()).toBe(46)
+    expect(res.get()).to.equal(46)
 })
 
-test("optional started with promise should work well ",async () => {
+it("optional started with promise should work well ",async () => {
 
 
     const res = await Optional.of(new Promise(resolve => {
@@ -147,10 +152,10 @@ test("optional started with promise should work well ",async () => {
         .map(i => i + 1)
         .toAsync()
 
-    expect(res.get()).toBe(46)
+    expect(res.get()).to.equal(46)
 })
 
-test("async optional should merge with other async optional as well ",async () => {
+it("async optional should merge with other async optional as well ",async () => {
 
     const input = {username: "hi", password: "hi"};
     const result = await Optional.of(input)
@@ -160,16 +165,16 @@ test("async optional should merge with other async optional as well ",async () =
         .toAsync()
 
 
-    expect(result).toBeTruthy()
-    expect(result).toBeInstanceOf(Optional)
-    expect(result.get()).toStrictEqual([
+    expect(result).not.to.be.null
+    expect(result).to.be.an.instanceof(Optional)
+    expect(result.get()).deep.eq([
         {id:"1",name:"Macbook Pro 2017" },
         {id:"2",name:"Dell XPS 2021" }
     ])
 })
 
 
-test("async optional should merge with other async optional as well ",async () => {
+it("async optional should merge with other async optional as well ",async () => {
 
     const input = {username: "hi", password: "hi"};
 
@@ -183,10 +188,13 @@ test("async optional should merge with other async optional as well ",async () =
         .toAsync()
 
 
-    expect(result).toBeTruthy()
-    expect(result).toBeInstanceOf(Optional)
-    expect(result.get()).toStrictEqual([
+    expect(result).not.to.be.null
+    expect(result).to.be.an.instanceof(Optional)
+
+    expect(result.get()).deep.eq([
         {id:"1",name:"Macbook Pro 2017" },
         {id:"2",name:"Dell XPS 2021" }
     ])
 })
+
+});

@@ -17,7 +17,7 @@ FN:33,Optional
 FN:36,(anonymous_14)
 FN:43,elementAsArray
 FN:50,getResult
-FN:56,flattenOptional
+FN:56,flattenResults
 FN:64,(anonymous_18)
 FN:67,(anonymous_19)
 FN:68,(anonymous_20)
@@ -53,7 +53,7 @@ FNDA:55,Optional
 FNDA:57,(anonymous_14)
 FNDA:58,elementAsArray
 FNDA:55,getResult
-FNDA:6,flattenOptional
+FNDA:6,flattenResults
 FNDA:19,(anonymous_18)
 FNDA:47,(anonymous_19)
 FNDA:45,(anonymous_20)

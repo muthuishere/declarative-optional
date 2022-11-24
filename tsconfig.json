@@ -1,24 +1,17 @@
 {
-  "declaration": true,
   "compilerOptions": {
-    "allowJs": true,
-    // Generate d.ts files
+    "target": "es5",
+    "module": "commonjs",
     "declaration": true,
-    // This compiler run should
-    // only output d.ts files
-    "emitDeclarationOnly": true,
-    // Types should go into this directory.
-    // Removing this would place the .d.ts files
-    // next to the .js files
+    "strictNullChecks":false ,
     "outDir": "dist",
-    // go to js file when using IDE functions like
-    // "Go to Definition" in VSCode
-    "declarationMap": true
+    "lib": [
+      "ES5",
+      "ES2015",
+      "DOM",
+      "ScriptHost"],
+    "strict": true
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "src/*"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "**/__tests/*"]
 }
