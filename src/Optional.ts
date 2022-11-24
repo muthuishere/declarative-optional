@@ -21,7 +21,7 @@ export default class Optional<Type> {
         return this;
     }
 
-    peek(fn: any) {
+    peek(fn: (value:any ) => Type) {
         this.functions.push((arrayedInput: any) =>
             Array.prototype.map.call(arrayedInput, (data) => {
                 fn(data);
@@ -31,7 +31,7 @@ export default class Optional<Type> {
         return this;
     }
 
-    flatmap(fn: any) {
+    flatmap<U>(fn: (value:any ) => U) {
         this.functions.push((arrayedInput: any) =>
             Array.prototype.map.call(arrayedInput, fn)
         );
@@ -103,7 +103,7 @@ export default class Optional<Type> {
         if (result) return fn(result);
     }
 
-    public ifPresentOrElse(fn: Function, elseFn: Function) {
+    public ifPresentOrElse<U>(fn: (value:any ) => U, elseFn: any) {
         const result = this.execute();
         if (result) return fn(result);
         else return elseFn();

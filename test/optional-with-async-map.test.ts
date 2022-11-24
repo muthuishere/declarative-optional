@@ -1,16 +1,15 @@
-// @ts-nocheck
+
 import {Optional} from "../src";
 import {expect} from "chai";
 
-
-function getFromUserService({username,password}){
+function getFromUserService(input:any){
+    const  {username,password} =input
     return new Promise((function (resolve) {
         resolve({id:"212",name:"user" ,isAdmin:true})
     }))
 }
-
 // an Async based Optional
-function productsForUserId(id){
+function productsForUserId(id:any){
     return Optional.of(new Promise((resolve) =>{
         resolve([
             {id:"1",name:"Macbook Pro 2017" },
@@ -20,7 +19,7 @@ function productsForUserId(id){
 }
 
 
-function getFromUserServiceError({username,password}){
+function getFromUserServiceError(input:any){
     return new Promise((function (resolve,reject) {
         reject("invalid user")
     }))
@@ -85,7 +84,7 @@ it("optional chained and ended with toAsync can further be evaluated with ifPres
 })
 it("optional chained and ended with toAsync should act appropriate even if initial data validation fails",(done) => {
 
-    const input = {username: null, password: "hi"};
+    const input:any = {username: null, password: "hi"};
 
 
       Optional.of(input)
@@ -169,7 +168,7 @@ it("async optional should merge with other async optional as well ",async () => 
 
     expect(result).not.to.be.null
     expect(result).to.be.an.instanceof(Optional)
-    expect(result.get()).deep.to.equal([
+    expect(result.get()).deep.eq([
         {id:"1",name:"Macbook Pro 2017" },
         {id:"2",name:"Dell XPS 2021" }
     ])

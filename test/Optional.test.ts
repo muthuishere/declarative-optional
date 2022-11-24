@@ -12,7 +12,7 @@ it("Creating Optional and applying map should return optional",()=>{
 
 
     const res  = Optional.of(25)
-        .map((i: number)=>i+1);
+        .map((i)=>i+1);
     console.log(res);
     console.log(typeof res);
     expect(res.isPresent()).to.equal(true)
@@ -24,8 +24,8 @@ it("applying peek function should be called , but response should not be conside
     let optional = new Optional(45);
     let peekedres = null
     const res  = optional
-        .map((i: number)=>i+1)
-        .peek((i: number)=>{
+        .map((i)=>i+1)
+        .peek((i)=>{
             peekedres =i+1
             return peekedres
         })
