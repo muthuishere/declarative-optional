@@ -81,28 +81,25 @@ var Optional = /** @class */ (function () {
         });
         return this;
     };
-    Optional.prototype.executeAsync = function () {
-        return (0, shared_1.executeAsyncWith)(this.input, this.getFunctions());
-    };
-    //TODO fix it
     Optional.prototype.stream = function () {
+        console.warn("stream deprecated , will be removed in 3.x");
         var result = this.execute();
-        if (null == result)
+        if (undefined == result || null == result)
             return [];
         if (Array.isArray(result))
-            return this.input;
+            return result;
         else
-            return (0, shared_1.elementAsArray)(result);
+            return formatInput(result);
     };
     Optional.prototype.getAsync = function () {
         return __awaiter(this, void 0, void 0, function () {
             var finalOutput, asyncResult;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.executeAsync()];
+                    case 0: return [4 /*yield*/, (0, shared_1.executeAsyncWith)(formatInput(this.input), this.getFunctions())];
                     case 1:
                         finalOutput = _a.sent();
-                        asyncResult = (0, shared_1.getResult)(finalOutput);
+                        asyncResult = getSingleResult(finalOutput);
                         return [2 /*return*/, asyncResult];
                 }
             });
@@ -122,7 +119,8 @@ var Optional = /** @class */ (function () {
         });
     };
     Optional.prototype.execute = function () {
-        return (0, shared_1.executeWith)(this.input, this.getFunctions());
+        var result = (0, shared_1.executeWith)(formatInput(this.input), this.getFunctions());
+        return getSingleResult(result);
     };
     Optional.prototype.get = function () {
         return this.execute();
@@ -135,6 +133,7 @@ var Optional = /** @class */ (function () {
         var result = this.execute();
         return result ? true : false;
     };
+    //(value:any ) => U
     Optional.prototype.ifPresent = function (fn) {
         var result = this.execute();
         if (result)
@@ -147,18 +146,26 @@ var Optional = /** @class */ (function () {
         else
             return elseFn();
     };
-    Optional.prototype.Optional = function () {
-        var result = this.execute();
-        if (null == result)
-            return [];
-        if (Array.isArray(result))
-            return this.input;
-        else
-            return (0, shared_1.elementAsArray)(result);
-    };
+    // public Optional() {
+    //     const result = this.execute();
+    //
+    //     if (undefined == result || null == result) return [];
+    //     if (Array.isArray(result)) return this.input;
+    //     else return elementAsArray(result);
+    // }
     Optional.of = function (input) {
         return new Optional(input);
     };
     return Optional;
 }());
 exports.default = Optional;
+function formatInput(input) {
+    if (!!input)
+        return [input];
+    return [];
+}
+function getSingleResult(arr) {
+    if (arr.length === 0)
+        return null;
+    return arr[0];
+}

@@ -1,51 +1,24 @@
-import {elementAsArray, executeAsyncWith, executeWith, flattenResults, getResult} from "./shared";
+import {executeAsyncWith, executeWith, flattenResults} from "./shared";
 
 
 export  default class Stream<Type> {
+
 
     functions: Function[] = [];
 
     getFunctions(): Function[] {
         return this.functions;
     }
-    map(fn: any) {
-        this.functions.push((arrayedInput: any) =>
-            Array.prototype.map.call(arrayedInput, fn)
-        );
-        return this;
-    }
 
-    filter(fn: any) {
+
+    filter(fn:(value: any) => Boolean) {
         this.functions.push((arrayedInput: any) =>
             Array.prototype.filter.call(arrayedInput, fn)
         );
         return this;
     }
-    take(n:number) {
-        this.functions.push((arrayedInput: any) =>
-            Array.prototype.filter.call(arrayedInput, (element,index)=>index<n)
-        );
-        return this;
-    }
 
-    private pushFunctionToGetDataAt(n:number){
-        this.functions.push((arrayedInput: any) =>
-            arrayedInput.length > n-1 ? arrayedInput[n-1] : null
-        );
-    }
-    public first() {
-        this.pushFunctionToGetDataAt(1);
-        return this.execute();
-    }
-    public next() {
-        this.pushFunctionToGetDataAt(2);
-        return this.execute();
-    }
-    public nth(n:number) {
-        this.pushFunctionToGetDataAt(n);
-        return this.execute();
-    }
-    public peek(fn: any) {
+    peek(fn: (value:any ) => Type) {
         this.functions.push((arrayedInput: any) =>
             Array.prototype.map.call(arrayedInput, (data) => {
                 fn(data);
@@ -55,7 +28,7 @@ export  default class Stream<Type> {
         return this;
     }
 
-    flatmap(fn: any) {
+    flatmap<U>(fn: (value:any ) => U) {
         this.functions.push((arrayedInput: any) =>
             Array.prototype.map.call(arrayedInput, fn)
         );
@@ -72,49 +45,84 @@ export  default class Stream<Type> {
         );
         return this;
     }
-    constructor(private input: Type) {
-
+    public async getAsync() {
+        const finalOutput = await executeAsyncWith(formatInput(this.input), this.getFunctions());
+// result should always be array
+        return finalOutput;
     }
 
-    public executeAsync() {
-        return executeAsyncWith(this.input, this.getFunctions());
+    public async toAsync() {
+        const asyncResult = await this.getAsync();
+        // @ts-ignore
+        return new Stream(formatInput(asyncResult));
     }
 
 
+    take(n:number) {
+        this.functions.push((arrayedInput: any) =>
+            Array.prototype.filter.call(arrayedInput, (element,index)=>index<n)
+        );
+        return this;
+    }
+
+    skip(n:number) {
+        this.functions.push((arrayedInput: any) =>
+            Array.prototype.filter.call(arrayedInput, (element,index)=>index>n-1)
+        );
+        return this;
+    }
+
+    private pushFunctionToGetDataAt(n:number){
+
+        this.functions.push((arrayedInput: any) =>
+            Array.prototype.filter.call(arrayedInput, (element,index)=>index==n-1)
+        );
+    }
+    public first() {
+        this.pushFunctionToGetDataAt(1);
+        return this;
+    }
+    public last() {
+        this.functions.push((arrayedInput: any) =>
+            Array.prototype.filter.call(arrayedInput, (element,index,arr)=>index==arr.length-1)
+        );
+        return this;
+    }
+    public nth(n:number) {
+        this.pushFunctionToGetDataAt(n);
+        return this;
+    }
 
 
+    public static of(input: any[]) {
+        return new Stream(input);
+    }
+    constructor(private input: any[]) {
 
+    }
+    map<U>(fn: (value:any ) => U) {
+        this.functions.push((arrayedInput: any) =>
+            Array.prototype.map.call(arrayedInput, fn)
+        );
+        return this;
+    }
     execute() {
 
-        return executeWith(this.input, this.getFunctions());
+        return executeWith(formatInput(this.input), this.getFunctions());
     }
-
-
-
 
     public get() {
         return this.execute();
     }
-    public async toAsync() {
-        const asyncResult = await this.getAsync();
-        return new Stream(asyncResult);
-    }
-    public async getAsync() {
-        const finalOutput = await this.executeAsync();
-        // @ts-ignore
-        const asyncResult = getResult(finalOutput);
-        return asyncResult;
-    }
-    public Stream() {
-        const result = this.execute();
 
-        if (null == result) return [];
+}
+function formatInput(input:any) {
+    if (undefined == input || null == input ) return [];
 
-        if (Array.isArray(result)) return this.input;
-        else return elementAsArray(result);
+    if (Array.isArray(input) ==false) {
+        console.warn("input is not an array,converting as array");
+        return [input];
     }
+    return input;
 
-    public static of<Type>(input: Type) {
-        return new Stream(input);
-    }
 }

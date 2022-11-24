@@ -45,40 +45,11 @@ var Stream = /** @class */ (function () {
     Stream.prototype.getFunctions = function () {
         return this.functions;
     };
-    Stream.prototype.map = function (fn) {
-        this.functions.push(function (arrayedInput) {
-            return Array.prototype.map.call(arrayedInput, fn);
-        });
-        return this;
-    };
     Stream.prototype.filter = function (fn) {
         this.functions.push(function (arrayedInput) {
             return Array.prototype.filter.call(arrayedInput, fn);
         });
         return this;
-    };
-    Stream.prototype.take = function (n) {
-        this.functions.push(function (arrayedInput) {
-            return Array.prototype.filter.call(arrayedInput, function (element, index) { return index < n; });
-        });
-        return this;
-    };
-    Stream.prototype.pushFunctionToGetDataAt = function (n) {
-        this.functions.push(function (arrayedInput) {
-            return arrayedInput.length > n - 1 ? arrayedInput[n - 1] : null;
-        });
-    };
-    Stream.prototype.first = function () {
-        this.pushFunctionToGetDataAt(1);
-        return this.execute();
-    };
-    Stream.prototype.next = function () {
-        this.pushFunctionToGetDataAt(2);
-        return this.execute();
-    };
-    Stream.prototype.nth = function (n) {
-        this.pushFunctionToGetDataAt(n);
-        return this.execute();
     };
     Stream.prototype.peek = function (fn) {
         this.functions.push(function (arrayedInput) {
@@ -104,14 +75,19 @@ var Stream = /** @class */ (function () {
         });
         return this;
     };
-    Stream.prototype.executeAsync = function () {
-        return (0, shared_1.executeAsyncWith)(this.input, this.getFunctions());
-    };
-    Stream.prototype.execute = function () {
-        return (0, shared_1.executeWith)(this.input, this.getFunctions());
-    };
-    Stream.prototype.get = function () {
-        return this.execute();
+    Stream.prototype.getAsync = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var finalOutput;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, shared_1.executeAsyncWith)(formatInput(this.input), this.getFunctions())];
+                    case 1:
+                        finalOutput = _a.sent();
+                        // result should always be array
+                        return [2 /*return*/, finalOutput];
+                }
+            });
+        });
     };
     Stream.prototype.toAsync = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -121,37 +97,67 @@ var Stream = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.getAsync()];
                     case 1:
                         asyncResult = _a.sent();
-                        return [2 /*return*/, new Stream(asyncResult)];
+                        // @ts-ignore
+                        return [2 /*return*/, new Stream(formatInput(asyncResult))];
                 }
             });
         });
     };
-    Stream.prototype.getAsync = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var finalOutput, asyncResult;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.executeAsync()];
-                    case 1:
-                        finalOutput = _a.sent();
-                        asyncResult = (0, shared_1.getResult)(finalOutput);
-                        return [2 /*return*/, asyncResult];
-                }
-            });
+    Stream.prototype.take = function (n) {
+        this.functions.push(function (arrayedInput) {
+            return Array.prototype.filter.call(arrayedInput, function (element, index) { return index < n; });
+        });
+        return this;
+    };
+    Stream.prototype.skip = function (n) {
+        this.functions.push(function (arrayedInput) {
+            return Array.prototype.filter.call(arrayedInput, function (element, index) { return index > n - 1; });
+        });
+        return this;
+    };
+    Stream.prototype.pushFunctionToGetDataAt = function (n) {
+        this.functions.push(function (arrayedInput) {
+            return Array.prototype.filter.call(arrayedInput, function (element, index) { return index == n - 1; });
         });
     };
-    Stream.prototype.Stream = function () {
-        var result = this.execute();
-        if (null == result)
-            return [];
-        if (Array.isArray(result))
-            return this.input;
-        else
-            return (0, shared_1.elementAsArray)(result);
+    Stream.prototype.first = function () {
+        this.pushFunctionToGetDataAt(1);
+        return this;
+    };
+    Stream.prototype.last = function () {
+        this.functions.push(function (arrayedInput) {
+            return Array.prototype.filter.call(arrayedInput, function (element, index, arr) { return index == arr.length - 1; });
+        });
+        return this;
+    };
+    Stream.prototype.nth = function (n) {
+        this.pushFunctionToGetDataAt(n);
+        return this;
     };
     Stream.of = function (input) {
         return new Stream(input);
     };
+    Stream.prototype.map = function (fn) {
+        this.functions.push(function (arrayedInput) {
+            return Array.prototype.map.call(arrayedInput, fn);
+        });
+        return this;
+    };
+    Stream.prototype.execute = function () {
+        return (0, shared_1.executeWith)(formatInput(this.input), this.getFunctions());
+    };
+    Stream.prototype.get = function () {
+        return this.execute();
+    };
     return Stream;
 }());
 exports.default = Stream;
+function formatInput(input) {
+    if (undefined == input || null == input)
+        return [];
+    if (Array.isArray(input) == false) {
+        console.warn("input is not an array,converting as array");
+        return [input];
+    }
+    return input;
+}

@@ -1,4 +1,4 @@
-import {elementAsArray, executeAsyncWith, executeWith, flattenResults, getResult} from "./shared";
+import {executeAsyncWith, executeWith, flattenResults} from "./shared";
 
 export default class Optional<Type> {
 
@@ -51,26 +51,21 @@ export default class Optional<Type> {
     constructor(private input: Type) {
 
     }
-
-    public executeAsync() {
-        return executeAsyncWith(this.input, this.getFunctions());
-    }
-
-
-    //TODO fix it
     public stream():any[] {
+        console.warn("stream deprecated , will be removed in 3.x");
         const result = this.execute();
 
-        if (null == result) return [];
+        if (undefined == result || null == result) return [];
+
 
         if (Array.isArray(result)) return result;
-        else return elementAsArray(result);
+        else return formatInput(result);
     }
     public async getAsync() {
-        const finalOutput = await this.executeAsync();
+        const finalOutput = await executeAsyncWith(formatInput(this.input), this.getFunctions());
 
         // @ts-ignore
-        const asyncResult = getResult(finalOutput);
+        const asyncResult = getSingleResult(finalOutput);
         return asyncResult;
     }
 
@@ -81,7 +76,8 @@ export default class Optional<Type> {
 
     execute() {
 
-        return executeWith(this.input, this.getFunctions());
+        const result= executeWith(formatInput(this.input), this.getFunctions());
+        return getSingleResult(result);
     }
 
     public get() {
@@ -109,14 +105,13 @@ export default class Optional<Type> {
         else return elseFn();
     }
 
-    public Optional() {
-        const result = this.execute();
-
-        if (null == result) return [];
-
-        if (Array.isArray(result)) return this.input;
-        else return elementAsArray(result);
-    }
+    // public Optional() {
+    //     const result = this.execute();
+    //
+    //     if (undefined == result || null == result) return [];
+    //     if (Array.isArray(result)) return this.input;
+    //     else return elementAsArray(result);
+    // }
 
     public static of<Type>(input:Type): Optional<Type> {
 
@@ -124,3 +119,11 @@ export default class Optional<Type> {
     }
 }
 
+function formatInput(input:any) {
+    if (!!input) return [input];
+    return [];
+}
+ function getSingleResult(arr: any[]) {
+    if (arr.length === 0) return null;
+    return arr[0];
+}

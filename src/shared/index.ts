@@ -1,13 +1,6 @@
 
-export function elementAsArray(input:any) {
-    if (!!input) return [input];
-    return [];
-}
 
-export  function getResult(arr: any[]) {
-    if (arr.length === 0) return null;
-    return arr[0];
-}
+
 
 export  function flattenResults(result: any) {
     const isOptional =
@@ -34,7 +27,7 @@ export function executeAsyncWith(input:any,functions:Function[] ){
                 });
             });
         },
-        Promise.resolve(Promise.all(elementAsArray(input)))
+        Promise.resolve(Promise.all(input))
     );
 }
 export function executeWith(input:any,functions:Function[] ){
@@ -43,10 +36,10 @@ export function executeWith(input:any,functions:Function[] ){
             let value = currentFunction(acc);
             return acc.length > 0 ? value : acc;
         },
-        elementAsArray(input)
+        input
     );
 
-    return getResult(finalOutput);
+    return finalOutput;
 
 
 }

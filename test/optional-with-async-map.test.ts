@@ -1,6 +1,9 @@
 
 import {Optional} from "../src";
-import {expect} from "chai";
+import * as chai from 'chai'
+import * as chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
+const expect = chai.expect
 
 function getFromUserService(input:any){
     const  {username,password} =input
@@ -154,6 +157,35 @@ it("optional started with promise should work well ",async () => {
         .toAsync()
 
     expect(res.get()).to.equal(46)
+})
+it("optional with async error at last should throw rejected ",async () => {
+
+
+    const res = Optional.of(Promise.resolve(45))
+        .map(i => i + 1)
+        .map(i => Promise.reject("error"))
+
+    expect(res.getAsync()).to.eventually.be.rejected;
+})
+it("optional with async and sync should work fine ",async () => {
+
+
+    const res = await Optional.of(Promise.resolve(45))
+        .map(i => i + 1)
+        .map(i => Promise.resolve(i+7))
+        .getAsync()
+
+    expect(res).to.equal(53);
+})
+it("optional with async error in middle should be rejected ",async () => {
+
+
+    const res = Optional.of(Promise.resolve(45))
+        .map(i => i + 1)
+        .map(i => Promise.reject("error"))
+        .map(i => i - 1)
+
+    expect(res.getAsync()).to.eventually.be.rejected;
 })
 
 it("async optional should merge with other async optional as well ",async () => {

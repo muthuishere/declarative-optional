@@ -1,18 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.executeWith = exports.executeAsyncWith = exports.flattenResults = exports.getResult = exports.elementAsArray = void 0;
-function elementAsArray(input) {
-    if (!!input)
-        return [input];
-    return [];
-}
-exports.elementAsArray = elementAsArray;
-function getResult(arr) {
-    if (arr.length === 0)
-        return null;
-    return arr[0];
-}
-exports.getResult = getResult;
+exports.executeWith = exports.executeAsyncWith = exports.flattenResults = void 0;
 function flattenResults(result) {
     var isOptional = result.hasOwnProperty("input") && result.hasOwnProperty("functions");
     // tslint:disable-next-line: no-console
@@ -33,14 +21,14 @@ function executeAsyncWith(input, functions) {
                 });
             });
         });
-    }, Promise.resolve(Promise.all(elementAsArray(input))));
+    }, Promise.resolve(Promise.all(input)));
 }
 exports.executeAsyncWith = executeAsyncWith;
 function executeWith(input, functions) {
     var finalOutput = functions.reduce(function (acc, currentFunction) {
         var value = currentFunction(acc);
         return acc.length > 0 ? value : acc;
-    }, elementAsArray(input));
-    return getResult(finalOutput);
+    }, input);
+    return finalOutput;
 }
 exports.executeWith = executeWith;

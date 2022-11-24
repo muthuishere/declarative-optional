@@ -15,11 +15,11 @@ A Javascript library to write concise functional code.Combined with features of 
 
 > Lazily evaluated
 
-> Merging multiple Optionals
-
 > chaining async and sync functions
 
 > Most of the Java Optional Features
+
+> Some of the Java Stream Features
 
 
 
@@ -135,9 +135,59 @@ async function login({username, password}) {
 
 
 ```
-There are so much you can play with declarative Optional. It does have some features similar to Java Optional & RX libraries, except the code is  small (one file around 4 Kb original source) and simple. 
+There are so much you can play with declarative suite. It does have some features similar to Java Optional & RX libraries, except the code is  small (one file around 4 Kb original source) and simple. 
 
 
+It also features a stream library,  a wrapper for array , with lazy evaluation and functional programming features.
+
+
+```javascript
+
+//commonjs
+    const {Stream} = require("declarative-optional");
+
+//ES6
+    import {Stream} from "declarative-optional";
+    
+    
+```
+
+
+
+```javascript
+
+    const results = Stream.of([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        .filter(val => val % 2 == 0)
+        .map(val => val * 2)
+        .get();
+
+    console.log(stream) // [4,8,12,16,20]
+    
+    
+    // first
+    Stream.of([45,46,80])
+        .first()
+        .get()
+    // [45]
+    
+    
+    
+    // last
+    Stream.of([45,46,80])
+        .last()
+        .get()
+    // [80]
+    
+    //The first and last methods are useful when you want to get the first or last element of a stream and also you can chain up map operations.
+
+    Stream.of([45,46,80])
+        .last()
+        .map(val=>val*2)
+        .get()
+    // [160]
+    
+
+```
 
 
 ### Documentation
