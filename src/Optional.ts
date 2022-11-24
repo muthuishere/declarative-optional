@@ -7,14 +7,14 @@ export default class Optional<Type> {
     getFunctions(): Function[] {
         return this.functions;
     }
-    map(fn: any) {
+    map<U>(fn: (value:any ) => U) {
         this.functions.push((arrayedInput: any) =>
             Array.prototype.map.call(arrayedInput, fn)
         );
         return this;
     }
 
-    filter(fn: any) {
+    filter(fn:(value: any) => Boolean) {
         this.functions.push((arrayedInput: any) =>
             Array.prototype.filter.call(arrayedInput, fn)
         );
@@ -58,16 +58,17 @@ export default class Optional<Type> {
 
 
     //TODO fix it
-    public stream() {
+    public stream():any[] {
         const result = this.execute();
 
         if (null == result) return [];
 
-        if (Array.isArray(result)) return this.input;
+        if (Array.isArray(result)) return result;
         else return elementAsArray(result);
     }
     public async getAsync() {
         const finalOutput = await this.executeAsync();
+
         // @ts-ignore
         const asyncResult = getResult(finalOutput);
         return asyncResult;
@@ -96,8 +97,8 @@ export default class Optional<Type> {
         const result = this.execute();
         return result ? true : false;
     }
-
-    public ifPresent(fn: Function) {
+//(value:any ) => U
+    public ifPresent<U>(fn: (value:any ) => U) {
         const result = this.execute();
         if (result) return fn(result);
     }
@@ -117,7 +118,8 @@ export default class Optional<Type> {
         else return elementAsArray(result);
     }
 
-    public static of<Type>(input: Type) {
+    public static of<Type>(input:Type): Optional<Type> {
+
         return new Optional(input);
     }
 }
