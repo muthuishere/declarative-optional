@@ -33,7 +33,7 @@ export function executeAsyncWith(input:any,functions:Function[] ){
 export function executeWith(input:any,functions:Function[] ){
     const finalOutput = functions.reduce(
         (acc: any, currentFunction: Function) => {
-            let value = currentFunction(acc);
+            const value = currentFunction(acc);
             return acc.length > 0 ? value : acc;
         },
         input

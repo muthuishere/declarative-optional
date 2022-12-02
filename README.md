@@ -33,18 +33,33 @@ A Javascript library to write concise functional code.Combined with features of 
 
 
 ##### Usage
-
+To Import
 ```
 // Common JS
-    const Optional = require( "declarative-optional");
+    const {Optional} = require( "declarative-optional");
 
 //ES6
     import {Optional} from "declarative-optional";
 
-//Increment a Number , which may be null
- Optional.of(input)
-    .map(val=>val+1)
-    .get()
+```
+
+Common Usages
+
+```
+
+//Increment By 5 
+  function incrementByFive(input) {
+        return Optional.of(input)
+            .map(i=>i+5)
+            .orElse(0)
+    }
+
+
+// incrementByFive(41)  => 46
+// incrementByFive(null)  => 0
+// incrementByFive(undefined)  => 0
+
+
 
 // All the expressions will be evaluated only after you specified get()
 

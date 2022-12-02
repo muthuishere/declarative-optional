@@ -75,7 +75,7 @@ export  default class Stream<Type> {
     private pushFunctionToGetDataAt(n:number){
 
         this.functions.push((arrayedInput: any) =>
-            Array.prototype.filter.call(arrayedInput, (element,index)=>index==n-1)
+            Array.prototype.filter.call(arrayedInput, (element,index)=>index===n-1)
         );
     }
     public first() {
@@ -84,7 +84,7 @@ export  default class Stream<Type> {
     }
     public last() {
         this.functions.push((arrayedInput: any) =>
-            Array.prototype.filter.call(arrayedInput, (element,index,arr)=>index==arr.length-1)
+            Array.prototype.filter.call(arrayedInput, (element,index,arr)=>index===arr.length-1)
         );
         return this;
     }
@@ -117,9 +117,10 @@ export  default class Stream<Type> {
 
 }
 function formatInput(input:any) {
-    if (undefined == input || null == input ) return [];
+    if (undefined === input || null === input ) return [];
 
-    if (Array.isArray(input) ==false) {
+    if (Array.isArray(input) === false) {
+        // tslint:disable-next-line: no-console
         console.warn("input is not an array,converting as array");
         return [input];
     }
