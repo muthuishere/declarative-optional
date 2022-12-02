@@ -117,7 +117,7 @@ var Stream = /** @class */ (function () {
     };
     Stream.prototype.pushFunctionToGetDataAt = function (n) {
         this.functions.push(function (arrayedInput) {
-            return Array.prototype.filter.call(arrayedInput, function (element, index) { return index == n - 1; });
+            return Array.prototype.filter.call(arrayedInput, function (element, index) { return index === n - 1; });
         });
     };
     Stream.prototype.first = function () {
@@ -126,7 +126,7 @@ var Stream = /** @class */ (function () {
     };
     Stream.prototype.last = function () {
         this.functions.push(function (arrayedInput) {
-            return Array.prototype.filter.call(arrayedInput, function (element, index, arr) { return index == arr.length - 1; });
+            return Array.prototype.filter.call(arrayedInput, function (element, index, arr) { return index === arr.length - 1; });
         });
         return this;
     };
@@ -153,9 +153,10 @@ var Stream = /** @class */ (function () {
 }());
 exports.default = Stream;
 function formatInput(input) {
-    if (undefined == input || null == input)
+    if (undefined === input || null === input)
         return [];
-    if (Array.isArray(input) == false) {
+    if (Array.isArray(input) === false) {
+        // tslint:disable-next-line: no-console
         console.warn("input is not an array,converting as array");
         return [input];
     }

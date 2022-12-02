@@ -82,9 +82,10 @@ var Optional = /** @class */ (function () {
         return this;
     };
     Optional.prototype.stream = function () {
+        // tslint:disable-next-line: no-console
         console.warn("stream deprecated , will be removed in 3.x");
         var result = this.execute();
-        if (undefined == result || null == result)
+        if (undefined === result || null === result)
             return [];
         if (Array.isArray(result))
             return result;
@@ -133,7 +134,6 @@ var Optional = /** @class */ (function () {
         var result = this.execute();
         return result ? true : false;
     };
-    //(value:any ) => U
     Optional.prototype.ifPresent = function (fn) {
         var result = this.execute();
         if (result)
@@ -146,13 +146,6 @@ var Optional = /** @class */ (function () {
         else
             return elseFn();
     };
-    // public Optional() {
-    //     const result = this.execute();
-    //
-    //     if (undefined == result || null == result) return [];
-    //     if (Array.isArray(result)) return this.input;
-    //     else return elementAsArray(result);
-    // }
     Optional.of = function (input) {
         return new Optional(input);
     };
