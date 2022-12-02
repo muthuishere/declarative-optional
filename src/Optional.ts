@@ -52,10 +52,11 @@ export default class Optional<Type> {
 
     }
     public stream():any[] {
+        // tslint:disable-next-line: no-console
         console.warn("stream deprecated , will be removed in 3.x");
         const result = this.execute();
 
-        if (undefined == result || null == result) return [];
+        if (undefined === result || null === result) return [];
 
 
         if (Array.isArray(result)) return result;
@@ -93,7 +94,7 @@ export default class Optional<Type> {
         const result = this.execute();
         return result ? true : false;
     }
-//(value:any ) => U
+
     public ifPresent<U>(fn: (value:any ) => U) {
         const result = this.execute();
         if (result) return fn(result);
@@ -104,14 +105,6 @@ export default class Optional<Type> {
         if (result) return fn(result);
         else return elseFn();
     }
-
-    // public Optional() {
-    //     const result = this.execute();
-    //
-    //     if (undefined == result || null == result) return [];
-    //     if (Array.isArray(result)) return this.input;
-    //     else return elementAsArray(result);
-    // }
 
     public static of<Type>(input:Type): Optional<Type> {
 

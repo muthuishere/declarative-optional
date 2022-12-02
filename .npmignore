@@ -7,4 +7,5 @@ test
 coverage
 *.log
 .github
+/.nyc_output
 
