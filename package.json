@@ -7,7 +7,7 @@
   "scripts": {
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha  ",
     "build-ts": "tsc",
-    "coverage": "nyc npm test",
+    "coverage": "nyc npm run test",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "clean": "rm -rf ./dist/*",
@@ -21,6 +21,7 @@
     "publish-package": "npm run build && npm publish"
   },
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/chai": "^4.3.3",
     "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "^10.0.0",
@@ -36,6 +37,21 @@
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.5.4",
     "uglify-js": "^3.14.1"
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "check-coverage": true,
+    "all": true,
+    "include": [
+      "src/**/!(*.test.*).[tj]s?(x)"
+    ],
+    "reporter": [
+      "html",
+      "lcov",
+      "text",
+      "text-summary"
+    ],
+    "report-dir": "coverage"
   },
   "keywords": [
     "declarative-optional",

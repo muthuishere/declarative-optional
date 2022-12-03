@@ -63,11 +63,27 @@ export default class Optional<Type> {
         else return formatInput(result);
     }
     public async getAsync() {
+      return await this.toPromise();
+    }
+    public async toPromise() {
         const finalOutput = await executeAsyncWith(formatInput(this.input), this.getFunctions());
 
         // @ts-ignore
         const asyncResult = getSingleResult(finalOutput);
         return asyncResult;
+    }
+
+    public async orElseAsync(data:any) {
+
+        try {
+            const asyncResult = await this.getAsync();
+            return asyncResult;
+        }catch (e) {
+            return data;
+        }
+
+
+
     }
 
     public async toAsync() {
