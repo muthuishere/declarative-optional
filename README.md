@@ -1,9 +1,8 @@
-
-
 ![Build](https://img.shields.io/github/workflow/status/muthuishere/declarative-optional/Node.js%20CI)
 ![Coverage](https://img.shields.io/codecov/c/github/muthuishere/declarative-optional)
 ![License](https://img.shields.io/npm/l/declarative-optional)
 ![Version](https://img.shields.io/npm/v/declarative-optional)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmuthuishere%2Fdeclarative-optional.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmuthuishere%2Fdeclarative-optional?ref=badge_shield)
 
 
 Declarative-Optional
@@ -509,3 +508,7 @@ There are some alternatives , Have a look into them as well
 
 
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmuthuishere%2Fdeclarative-optional.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmuthuishere%2Fdeclarative-optional?ref=badge_large)
