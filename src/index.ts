@@ -1,6 +1,6 @@
 import Optional from "./Optional";
 import Stream from "./Stream";
 
-export { Optional,Stream };
+export { Optional, Stream };
 
-export  default Optional;
+export default Optional;
