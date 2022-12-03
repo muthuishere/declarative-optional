@@ -1,6 +1,6 @@
 {
   "name": "declarative-optional",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "description": "A Declarative way to deal with null , undefined and promises via optional and streams",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -74,7 +74,10 @@
     },
     "github": {
       "release": true,
-      "assets": ["dist/**/*.js","dist/**/*.d.ts"]
+      "assets": [
+        "dist/**/*.js",
+        "dist/**/*.d.ts"
+      ]
     }
   },
   "keywords": [
