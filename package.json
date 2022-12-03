@@ -23,7 +23,7 @@
     "version": "npm run format && git add -A src",
     "publish-package": "npm run build && npm publish",
     "release": "npm run env &&  release-it patch --github.autoGenerate",
-    "release-local": "npm run env &&  release-it patch --github.autoGenerate --npm.publish=true  --git.commitMessage='release-local v${version}'",
+    "release-local": "npm run env &&  release-it patch --github.autoGenerate --npm.publish=true  --git.commitMessage='release-patch v${version}'",
     "release-dryrun": "npm run env &&  release-it patch  --github.autoGenerate --dry-run",
     "release-minor": "npm run env &&  release-it minor"
   },
