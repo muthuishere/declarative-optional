@@ -22,8 +22,8 @@
     "postversion": "git push && git push --tags",
     "version": "npm run format && git add -A src",
     "publish-package": "npm run build && npm publish",
-    "release": "npm run env &&  release-it patch",
-    "release-dryrun": "npm run env &&  release-it patch --dry-run",
+    "release": "npm run env &&  release-it patch --github.autoGenerate",
+    "release-dryrun": "npm run env &&  release-it patch  --github.autoGenerate --dry-run",
     "release-minor": "npm run env &&  release-it minor"
   },
   "devDependencies": {
