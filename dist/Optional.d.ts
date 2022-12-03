@@ -10,6 +10,8 @@ export default class Optional<Type> {
     constructor(input: Type);
     stream(): any[];
     getAsync(): Promise<any>;
+    toPromise(): Promise<any>;
+    orElseAsync(data: any): Promise<any>;
     toAsync(): Promise<Optional<any>>;
     execute(): any;
     get(): any;

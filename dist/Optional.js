@@ -94,6 +94,16 @@ var Optional = /** @class */ (function () {
     };
     Optional.prototype.getAsync = function () {
         return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.toPromise()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Optional.prototype.toPromise = function () {
+        return __awaiter(this, void 0, void 0, function () {
             var finalOutput, asyncResult;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -102,6 +112,25 @@ var Optional = /** @class */ (function () {
                         finalOutput = _a.sent();
                         asyncResult = getSingleResult(finalOutput);
                         return [2 /*return*/, asyncResult];
+                }
+            });
+        });
+    };
+    Optional.prototype.orElseAsync = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var asyncResult, e_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.getAsync()];
+                    case 1:
+                        asyncResult = _a.sent();
+                        return [2 /*return*/, asyncResult];
+                    case 2:
+                        e_1 = _a.sent();
+                        return [2 /*return*/, data];
+                    case 3: return [2 /*return*/];
                 }
             });
         });

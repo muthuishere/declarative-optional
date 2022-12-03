@@ -5,6 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "env-linux": "export $(cat .env | xargs) && env",
+    "env-windows": "(for /F \"tokens=*\" %i in (.env) do set %i)",
+    "env": "npm run env-linux",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha  ",
     "build-ts": "tsc",
     "coverage": "nyc npm run test",
@@ -18,9 +21,12 @@
     "preversion": "npm run lint",
     "postversion": "git push && git push --tags",
     "version": "npm run format && git add -A src",
-    "publish-package": "npm run build && npm publish"
+    "publish-package": "npm run build && npm publish",
+    "release": "npm run env &&  release-it minor",
+    "release-dryrun": "npm run env &&  release-it minor --dry-run"
   },
   "devDependencies": {
+    "release-it": "*",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/chai": "^4.3.3",
     "@types/chai-as-promised": "^7.1.5",
@@ -52,6 +58,20 @@
       "text-summary"
     ],
     "report-dir": "coverage"
+  },
+  "release-it": {
+    "hooks": {
+      "before:init": "npm test"
+    },
+    "git": {
+      "commitMessage": "muthuishere: release v${version}"
+    },
+    "npm": {
+      "publish": false
+    },
+    "github": {
+      "release": true
+    }
   },
   "keywords": [
     "declarative-optional",
