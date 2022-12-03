@@ -14,7 +14,7 @@ export default class Stream<Type> {
     return this;
   }
 
-  peek(fn: (value: any) => Type) {
+  peek(fn: (value: any) => void) {
     this.functions.push((arrayedInput: any) =>
       Array.prototype.map.call(arrayedInput, (data) => {
         fn(data);
