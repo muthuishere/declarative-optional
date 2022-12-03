@@ -20,7 +20,7 @@ export default class Optional<Type> {
     return this;
   }
 
-  peek(fn: (value: any) => Type) {
+  peek(fn: (value: any) => void) {
     this.functions.push((arrayedInput: any) =>
       Array.prototype.map.call(arrayedInput, (data) => {
         fn(data);

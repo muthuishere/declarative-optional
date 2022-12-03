@@ -27,7 +27,6 @@ it("applying peek function should be called , but response should not be conside
         .map((i)=>i+1)
         .peek((i)=>{
             peekedres =i+1
-            return peekedres
         })
         .get()
 
