@@ -11,9 +11,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
@@ -31,5 +29,21 @@ jobs:
     - run: npm run coverage
     - name: Codecov
       uses: codecov/codecov-action@v3.1.1
-      with:          
+      with:
           directory: ./coverage
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.event.head_commit.message, 'release v') }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      - run: npm ci
+      - run: echo "Getting ready for npm publish"
+      - run: npm test
+      - run: npm run publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
