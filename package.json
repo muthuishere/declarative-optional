@@ -73,7 +73,8 @@
       "publish": false
     },
     "github": {
-      "release": true
+      "release": true,
+      "assets": ["dist/**/*.js","dist/**/*.d.ts"]
     }
   },
   "keywords": [
