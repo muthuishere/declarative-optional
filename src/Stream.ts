@@ -1,4 +1,4 @@
-import {canReturnEmpty, executeAsyncWith, executeWith, flattenResults} from "./shared";
+import {canReturnEmpty, executeAsyncWith, executeWith} from "./shared";
 
 
 export default class Stream<Type> {
@@ -25,23 +25,7 @@ export default class Stream<Type> {
         return this;
     }
 
-    flatmap<U>(fn: (value: any) => U) {
-        this.functions.push((arrayedInput: any) =>
-            Array.prototype.map.call(arrayedInput, fn)
-        );
-        this.functions.push((arrayedInput: any) =>
-            Array.prototype.map.call(arrayedInput, flattenResults)
-        );
 
-        return this;
-    }
-
-    flatten() {
-        this.functions.push((arrayedInput: any) =>
-            Array.prototype.map.call(arrayedInput, flattenResults)
-        );
-        return this;
-    }
 
     public async getAsync() {
         const finalOutput = await executeAsyncWith(

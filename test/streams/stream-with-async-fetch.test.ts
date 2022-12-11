@@ -80,6 +80,19 @@ it("Stream.of with  Promise Array with orElseAsync should work if promise is rej
     expect(val).not.to.be.null
     expect(val).deep.eq(["default"])
 })
+it("Stream.of with  Promise Array with orElseAsync should not be invoked if promise is succesful and value is present",async () => {
+
+    const input = [Promise.resolve(21),Promise.resolve(25),Promise.resolve(30)]
+    const val = await Stream.of(input)
+        .filter((value) => value %5 ==0)
+        .map(getFromUserService)
+        .orElseAsync(["default"])
+
+    expect(val).deep.eq([
+        { id: 25, name: 'user', isAdmin: true },
+        { id: 30, name: 'user', isAdmin: true }
+    ])
+})
 it("Stream.of with  Promise Array with orElseAsync should work if response is empty array",async () => {
 
     const input = [Promise.resolve(20),Promise.resolve(25),Promise.resolve(30)]

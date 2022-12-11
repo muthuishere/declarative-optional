@@ -11,6 +11,8 @@ export function flattenResults(result: any) {
   return result.get();
 }
 
+
+
 export function executeAsyncWith(input: any, functions: Function[]) {
   return functions.reduce((p: Promise<any>, currentFunction: Function) => {
     return p.then((item) => {

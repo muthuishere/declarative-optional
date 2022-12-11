@@ -141,8 +141,40 @@ it("optional chained with  toAsync should work fine for non async operations as 
 
     expect(res.get()).to.equal(46)
 })
+it("optional chained with  orElseAsync should return default value if no value ",async () => {
+
+
+    const res = await Optional.of(Promise.resolve(41))
+        .filter(i => i % 5 == 0)
+        .map(i => i + 1)
+        .orElseAsync(23);
+
+    expect(res).to.equal(23)
+})
+it("optional chained with  orElseAsync should return computed value if value can pass through chains ",async () => {
+
+
+    const res = await Optional.of(Promise.resolve(41))
+        .filter(i => i % 5 == 0)
+        .map(i => i + 1)
+        .orElseAsync(23);
+
+    expect(res).to.equal(23)
+})
 
 it("optional started with promise should work well ",async () => {
+
+
+    const res = await Optional.of(new Promise(resolve => {
+        resolve(45)
+    }))
+        .filter(i => i % 5 == 0)
+        .map(i => i + 1)
+        .toAsync()
+
+    expect(res.get()).to.equal(46)
+})
+it("optional started with promise should handle reject properly ",async () => {
 
 
     const res = await Optional.of(new Promise(resolve => {

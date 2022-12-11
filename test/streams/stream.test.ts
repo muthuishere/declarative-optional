@@ -23,6 +23,7 @@ it("stream works fine with map function against an array",()=>{
         expect(res).deep.eq([46,81]);
     })
 
+
     it("stream with take should take first x elements",()=>{
 
         const res  = Stream.of([45,46,80])
