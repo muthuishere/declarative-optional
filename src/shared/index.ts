@@ -11,8 +11,6 @@ export function flattenResults(result: any) {
   return result.get();
 }
 
-
-
 export function executeAsyncWith(input: any, functions: Function[]) {
   return functions.reduce((p: Promise<any>, currentFunction: Function) => {
     return p.then((item) => {
@@ -37,12 +35,13 @@ export function executeWith(input: any, functions: Function[]) {
   return finalOutput;
 }
 
-export function isEmpty(asyncResult:any) {
+export function isEmpty(asyncResult: any) {
   return !asyncResult;
 }
 
-export  function isEmptyArray(asyncResult:any) {
+export function isEmptyArray(asyncResult: any) {
   return Array.isArray(asyncResult) && asyncResult.length === 0;
 }
 
-export const canReturnEmpty = (input:any) => isEmpty(input) || isEmptyArray(input);
+export const canReturnEmpty = (input: any) =>
+  isEmpty(input) || isEmptyArray(input);
