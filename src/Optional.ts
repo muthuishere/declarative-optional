@@ -72,12 +72,12 @@ export default class Optional<Type> {
     return asyncResult;
   }
 
-  public async orElseAsync(data: any) {
+  public async orElseAsync(defaultValue: any) {
     try {
       const asyncResult = await this.getAsync();
-      return asyncResult;
+      return asyncResult ? asyncResult : defaultValue;
     } catch (e) {
-      return data;
+      return defaultValue;
     }
   }
 

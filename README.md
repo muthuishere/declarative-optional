@@ -202,6 +202,27 @@ It also features a stream library,  a wrapper for array , with lazy evaluation a
     // [160]
     
 
+// Async Stream
+    const input = [Promise.resolve(21),Promise.resolve(25),Promise.resolve(30)]
+    const result = await Stream.of(input)
+        .filter((value) => value %5 ==0)
+        .map(getFromUserService)
+        .getAsync()
+    
+    // [25,30]
+    
+    
+// handle async errors or empty values with default value
+
+    const input = [Promise.resolve(21),Promise.reject(25),Promise.resolve(30)]
+    const val = await Stream.of(input)
+        .filter((value) => value %5 ==0)
+        .map(getFromUserService)
+        .orElseAsync(["default"])
+
+    // ["default"]    
+
+
 ```
 
 

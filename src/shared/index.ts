@@ -34,3 +34,13 @@ export function executeWith(input: any, functions: Function[]) {
 
   return finalOutput;
 }
+
+export function isEmpty(asyncResult:any) {
+  return !asyncResult;
+}
+
+export  function isEmptyArray(asyncResult:any) {
+  return Array.isArray(asyncResult) && asyncResult.length === 0;
+}
+
+export const canReturnEmpty = (input:any) => isEmpty(input) || isEmptyArray(input);
