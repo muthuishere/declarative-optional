@@ -2,7 +2,6 @@
 ![Coverage](https://img.shields.io/codecov/c/github/muthuishere/declarative-optional)
 ![License](https://img.shields.io/npm/l/declarative-optional)
 ![Version](https://img.shields.io/npm/v/declarative-optional)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmuthuishere%2Fdeclarative-optional.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmuthuishere%2Fdeclarative-optional?ref=badge_shield)
 
 
 Declarative-Optional
