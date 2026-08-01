@@ -1,3 +1,4 @@
+[![Discord](https://img.shields.io/badge/AgentNexus-join%20the%20community-5865F2?logo=discord&logoColor=white)](https://discord.gg/V9C2kvHC8D)
 
 ![Coverage](https://img.shields.io/codecov/c/github/muthuishere/declarative-optional)
 ![License](https://img.shields.io/npm/l/declarative-optional)
@@ -526,6 +527,7 @@ There are some alternatives , Have a look into them as well
 
  [amidevtech/optional.js](https://github.com/amidevtech/optional.js)
 
+## Community
 
-
-
+Questions, ideas, or built something with this? Join **[AgentNexus](https://discord.gg/V9C2kvHC8D)** — a Discord
+for people building with AI agents and open tools. This project lives in **#other-tools**.
